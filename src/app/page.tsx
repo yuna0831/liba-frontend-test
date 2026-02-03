@@ -11,7 +11,7 @@ import { Search, Bell, HelpCircle } from 'lucide-react';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#FFFFFF] flex flex-col lg:flex-row font-sans text-sm text-slate-800 relative">
+    <div className="min-h-screen bg-[#F3F4F6] flex flex-col lg:flex-row font-sans text-sm text-slate-800 relative">
       <Sidebar />
 
       {/* 2. TopBar와 함께 위치 (absolute 기준점 공유) */}

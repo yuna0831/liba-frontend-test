@@ -2,10 +2,10 @@ import { Search, Bell, HelpCircle } from 'lucide-react';
 
 export function TopBar() {
     return (
-        <div className="absolute top-0 left-[219px] w-[1221px] h-[80px] bg-[#FFFFFF]">
+        <div className="fixed top-0 left-[219px] right-0 h-[80px] bg-[#FFFFFF] border-b border-gray-200 z-40 flex items-center px-[40px]">
 
-            {/* Tab Container (Frame 29007) */}
-            <div className="absolute left-[calc(50%-491px/2-315px)] top-1/2 -translate-y-1/2 w-[491px] h-[96px] flex items-center gap-[1px]">
+            {/* Tabs Group */}
+            <div className="flex items-center gap-[1px]">
 
                 {/* Tab: Matched (Active) */}
                 <button className="flex items-center justify-center w-[118px] h-[43px] rounded-[22px] border-[1.5px] border-[#CBBAFF] bg-white transition-colors">
@@ -43,7 +43,6 @@ export function TopBar() {
                 </button>
 
             </div>
-
 
         </div>
     );
