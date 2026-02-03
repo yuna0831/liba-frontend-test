@@ -16,7 +16,7 @@ const NAV_ITEMS = [
 
 export function Sidebar() {
   return (
-    <aside className="hidden lg:flex flex-col w-[219px] h-[900px] border-r border-[#DFDFDF] bg-white shadow-[1px_0_20px_rgba(0,0,0,0.02)] flex-shrink-0 relative">
+    <aside className="hidden lg:flex flex-col w-[219px] h-[900px] bg-[#FFFFFF] shadow-[1px_0_20px_rgba(0,0,0,0.02)] flex-shrink-0 relative">
       {/* Brand Logo Container (Frame 2087327261) */}
       <div className="absolute top-[9px] left-0 w-[219px] h-[61.15px] flex flex-col items-start px-[12px] py-[10px] gap-[10px] z-20">
         <div className="relative w-full h-full">
