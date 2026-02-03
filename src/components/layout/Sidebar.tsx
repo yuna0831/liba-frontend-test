@@ -1,6 +1,6 @@
 'use client';
 
-import { Briefcase, FileText, Star } from 'lucide-react';
+import { Briefcase, FileText } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -14,11 +14,18 @@ const NAV_ITEMS = [
   { img: '/icons/credits.png', label: 'Extra Credits', href: '/credits' },
 ];
 
-export function Sidebar() {
+import { clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+interface SidebarProps {
+  className?: string;
+}
+
+export function Sidebar({ className }: SidebarProps) {
   return (
-    <aside className="hidden lg:flex flex-col w-[219px] h-[900px] bg-[#FFFFFF] shadow-[1px_0_20px_rgba(0,0,0,0.02)] flex-shrink-0 relative">
+    <aside className={twMerge(clsx("hidden lg:flex flex-col w-[219px] h-screen bg-[#FFFFFF] shadow-[1px_0_20px_rgba(0,0,0,0.02)] flex-shrink-0 relative", className))}>
       {/* Brand Logo Container (Frame 2087327261) */}
-      <div className="absolute top-[9px] left-0 w-[219px] h-[61.15px] flex flex-col items-start px-[12px] py-[10px] gap-[10px] z-20">
+      <div className="absolute top-[9px] left-0 w-full h-[61.15px] flex flex-col items-start px-[12px] py-[10px] gap-[10px] z-20">
         <div className="relative w-full h-full">
           <Image
             src="/icons/Jobnova.png"
@@ -30,8 +37,8 @@ export function Sidebar() {
         </div>
       </div>
 
-      {/* Navigation Menu (Width 219px) - Absolute Position Top 102px */}
-      <nav className="absolute top-[102px] left-0 flex flex-col w-[219px] h-auto space-y-[10px]">
+      {/* Navigation Menu (Width 100%) - Absolute Position Top 102px */}
+      <nav className="absolute top-[102px] left-0 flex flex-col w-full h-auto space-y-[10px]">
         {NAV_ITEMS.map((item) => (
           <div key={item.label} className="flex flex-col items-center w-full">
             {/* Menu Button (Width 195px, Height 45px) */}

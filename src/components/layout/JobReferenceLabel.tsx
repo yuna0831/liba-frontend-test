@@ -1,8 +1,14 @@
 import React from 'react';
+import { clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
-export function JobReferenceLabel() {
+interface JobReferenceLabelProps {
+    className?: string;
+}
+
+export function JobReferenceLabel({ className }: JobReferenceLabelProps) {
     return (
-        <div className="absolute left-[241px] top-[101px] w-[699px] h-[40px] bg-[#A68BFA] border border-[#E8E8E8] rounded-[31px] flex justify-center items-center gap-[10px] px-[16px] py-[8px] z-10 shadow-sm cursor-pointer hover:bg-[#9778F5] transition-colors">
+        <div className={twMerge(clsx("w-full h-[40px] bg-[#A68BFA] border border-[#E8E8E8] rounded-[31px] flex justify-center items-center gap-[10px] px-[16px] py-[8px] z-10 shadow-sm cursor-pointer hover:bg-[#9778F5] transition-colors", className))}>
 
             {/* Icon Box 16x16 */}
             <div className="w-[16px] h-[16px] relative flex items-center justify-center">

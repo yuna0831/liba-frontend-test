@@ -1,6 +1,13 @@
-export function TopMatchedButton() {
+import { clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+interface TopMatchedButtonProps {
+    className?: string;
+}
+
+export function TopMatchedButton({ className }: TopMatchedButtonProps) {
     return (
-        <div className="absolute left-[950px] top-[101px] w-[162px] h-[37px] bg-white rounded-[31px] flex justify-center items-center gap-[10px] px-[18px] py-[8px] z-10 cursor-pointer transition-all duration-200 border-0 outline-none ring-0 shadow-[0px_4px_4px_rgba(0,0,0,0.25)] hover:border-[1.5px] hover:border-solid hover:border-[#B7FD33]">
+        <div className={twMerge(clsx("w-[162px] h-[37px] bg-white rounded-[31px] flex justify-center items-center gap-[10px] px-[18px] py-[8px] z-10 cursor-pointer transition-all duration-200 border-0 outline-none ring-0 shadow-[0px_4px_4px_rgba(0,0,0,0.25)] hover:border-[1.5px] hover:border-solid hover:border-[#B7FD33]", className))}>
 
             {/* Icon 16x16 */}
             <div className="w-[16px] h-[16px] flex items-center justify-center">

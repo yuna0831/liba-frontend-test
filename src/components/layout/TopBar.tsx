@@ -1,8 +1,14 @@
 import { Search, Bell, HelpCircle } from 'lucide-react';
+import { clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
-export function TopBar() {
+interface TopBarProps {
+    className?: string;
+}
+
+export function TopBar({ className }: TopBarProps) {
     return (
-        <div className="fixed top-0 left-[219px] right-0 h-[80px] bg-[#FFFFFF] border-b border-gray-200 z-40 flex items-center px-[40px]">
+        <div className={twMerge(clsx("w-full h-[80px] bg-[#FFFFFF] border-b border-[#E5E7EB] flex items-center px-[40px] z-50", className))}>
 
             {/* Tabs Group */}
             <div className="flex items-center gap-[1px]">
