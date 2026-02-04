@@ -4,50 +4,89 @@ import { motion } from 'framer-motion';
 
 interface MatchRateChartProps {
     percentage: number;
+    size?: number; // Figma: 107.83px
+    color?: string; // Figma: #FFD035
 }
 
-export function MatchRateChart({ percentage }: MatchRateChartProps) {
-    const radius = 26;
-    const strokeWidth = 3;
+export function MatchRateChart({ percentage, size = 107.83, color = '#FFD035' }: MatchRateChartProps) {
+    const strokeWidth = 8;
+    const radius = (size - strokeWidth) / 2;
     const circumference = 2 * Math.PI * radius;
+
+    // 시계 반대 방향으로 채우기 위한 오프셋 계산
     const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
     return (
-        <div className="relative flex items-center justify-center w-[70px] h-[70px]">
-            <svg className="transform -rotate-90 w-full h-full">
-                {/* Background Circle */}
+        <div
+            className="relative flex items-center justify-center flex-none"
+            style={{ width: `${size}px`, height: `${size}px` }}
+        >
+            {/* 1. -rotate-90: 12시 방향에서 시작하게 함
+                2. scale-y-[-1]: y축을 반전시켜 시계 반대 방향(Counter-Clockwise)으로 애니메이션 진행
+            */}
+            <svg className="transform -rotate-90 scale-y-[-1] w-full h-full">
+                {/* 배경 원 (Ellipse 244) */}
                 <circle
-                    className="text-gray-100"
+                    className="text-[#F3F3F4]"
                     strokeWidth={strokeWidth}
                     stroke="currentColor"
                     fill="transparent"
                     r={radius}
-                    cx="35"
-                    cy="35"
+                    cx={size / 2}
+                    cy={size / 2}
                 />
-                {/* Progress Circle - Gradient ID reference if needed, but using text-brand-purple for now. 
-            User asked for purple/yellow, I will add a defs for gradient if I can, but simple is better first. 
-            Let's stick to brand-purple as it matches the theme. 
-        */}
+                {/* 진행률 원 (Ellipse 245) */}
                 <motion.circle
-                    className="text-brand-purple"
                     strokeWidth={strokeWidth}
                     strokeDasharray={circumference}
                     strokeDashoffset={circumference}
                     strokeLinecap="round"
-                    stroke="currentColor"
+                    stroke={color}
                     fill="transparent"
                     r={radius}
-                    cx="35"
-                    cy="35"
+                    cx={size / 2}
+                    cy={size / 2}
                     initial={{ strokeDashoffset: circumference }}
                     animate={{ strokeDashoffset }}
-                    transition={{ duration: 1, ease: "easeOut" }}
+                    transition={{ duration: 1.2, ease: "easeOut" }}
                 />
             </svg>
-            <div className="absolute flex flex-col items-center">
-                <span className="text-[10px] font-bold text-gray-900 leading-none">{percentage}%</span>
-                <span className="text-[8px] font-medium text-gray-400 leading-none mt-0.5">Match</span>
+
+            {/* 중앙 텍스트 레이어 - 피그마 calc 수치 엄격 반영 */}
+            <div className="absolute inset-0 pointer-events-none">
+                {/* 64% 텍스트 */}
+                <span
+                    className="absolute font-[family-name:var(--font-inter)] font-semibold text-[#1F2937] text-center"
+                    style={{
+                        width: '51px',
+                        height: '28px',
+                        left: 'calc(50% - 25.5px + 1.14px)',
+                        top: 'calc(50% - 14px - 10.26px)',
+                        fontSize: '23.9614px',
+                        lineHeight: '27px',
+                        letterSpacing: '-0.02em',
+                        fontFeatureSettings: "'calt' off"
+                    }}
+                >
+                    {percentage}%
+                </span>
+
+                {/* Match 텍스트 */}
+                <span
+                    className="absolute font-[family-name:var(--font-inter)] font-normal text-[#1F2937] text-center"
+                    style={{
+                        width: '49px',
+                        height: '27px',
+                        left: 'calc(50% - 24.5px + 0.58px)',
+                        top: 'calc(50% - 13.5px + 16.2px)',
+                        fontSize: '16.7729px',
+                        lineHeight: '27px',
+                        letterSpacing: '-0.02em',
+                        fontFeatureSettings: "'calt' off"
+                    }}
+                >
+                    Match
+                </span>
             </div>
         </div>
     );

@@ -100,8 +100,7 @@ export function Sidebar({ className }: SidebarProps) {
                 <stop offset="100%" style={{ stopColor: 'white', stopOpacity: 0 }} />
               </linearGradient>
             </defs>
-            <circle cx="0" cy="100" r="80" fill="url(#grad1)" />
-            <circle cx="200" cy="0" r="60" fill="#D9FF41" opacity="0.4" />
+
           </svg>
 
           {/* Main Title (Global Top 67 - Box Top 41 = 26px / Global Left 39 - Box Left 20 = 19px) */}
