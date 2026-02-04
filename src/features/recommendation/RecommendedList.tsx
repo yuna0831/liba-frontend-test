@@ -1,4 +1,4 @@
-import { JobCard } from '@/components/jobs/JobCard';
+import { JobCard } from '@/app/jobs/JobCard';
 import { JOB_DATA } from '@/data/jobs';
 
 export function RecommendedList() {

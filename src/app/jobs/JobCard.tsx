@@ -1,8 +1,9 @@
 'use client';
 
 import { Link2, Heart, MapPin, Radio } from 'lucide-react';
-import { MatchRateChart } from '@/components/jobs/MatchRateChart';
+import { MatchRateChart } from '@/app/jobs/MatchRateChart';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface JobCardProps {
     title: string;
@@ -20,6 +21,13 @@ interface JobCardProps {
 
 export function JobCard({ title, company, location, type, salary, tags, logo, matchScore, matchColor, postedAt, applicants }: JobCardProps) {
     const [isLiked, setIsLiked] = useState(false);
+    const router = useRouter();
+
+    const handleApplyClick = (e: React.MouseEvent) => {
+        e.stopPropagation(); // 카드 전체 클릭 방지
+        // 상세 페이지로 이동 (id나 title을 슬러그로 활용)
+        router.push(`/jobs/detail`);
+    };
 
     return (
         <div className="w-[900px] h-[261px] bg-white rounded-[12.94px] border border-[#EDEDED] relative overflow-hidden group hover:shadow-md transition-shadow mb-[6px]">
@@ -135,7 +143,11 @@ export function JobCard({ title, company, location, type, salary, tags, logo, ma
                 </div>
 
                 <div className="flex items-center gap-[10.78px]">
-                    <button className="flex items-center justify-center bg-white border border-[rgba(177,174,174,0.5)] rounded-[46.36px]" style={{ width: '84.82px', height: '43.13px' }}>
+                    <button
+                        onClick={handleApplyClick}
+                        className="flex items-center justify-center bg-white border border-[rgba(177,174,174,0.5)] rounded-[46.36px] hover:bg-gray-50 transition-colors"
+                        style={{ width: '84.82px', height: '43.13px' }}
+                    >
                         <span className="text-[17.25px] font-medium text-[#1F2937]">Apply</span>
                     </button>
                     <button className="flex items-center justify-center bg-[#B9FD33] rounded-[46.36px]" style={{ width: '161.82px', height: '43.13px' }}>

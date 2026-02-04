@@ -1,4 +1,4 @@
-import { MatchRateChart } from '@/components/jobs/MatchRateChart';
+import { MatchRateChart } from '@/app/jobs/MatchRateChart';
 import { Check, X } from 'lucide-react';
 
 export function MatchAnalysis() {
