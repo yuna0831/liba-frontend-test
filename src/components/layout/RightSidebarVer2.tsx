@@ -1,39 +1,48 @@
-'use client';
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Sparkles } from 'lucide-react';
 
 /**
- * 개별 매칭 항목을 보여주는 원형 프로그레스 바 컴포넌트
+ * MatchRateCard: 110x81px 사이즈의 개별 매칭 카드 (Figma: Rectangle 9638)
+ * 게이지가 12시 방향에서 시작해 시계 반대 방향(CCW)으로 차오름
  */
-interface MatchCircleProps {
-    percentage: number;
-    label: string;
-    color?: string;
-}
-
-const MatchCircle = ({ percentage, label, color = "#A68BFA" }: MatchCircleProps) => {
-    const radius = 20;
+const MatchRateCard = ({ percentage, label, isUpgraded }: { percentage: number; label: string; isUpgraded: boolean }) => {
+    const [currentPercent, setCurrentPercent] = useState(0);
+    const radius = 18;
     const circumference = 2 * Math.PI * radius;
-    const offset = circumference - (percentage / 100) * circumference;
+
+    useEffect(() => {
+        if (isUpgraded) {
+            const timer = setTimeout(() => setCurrentPercent(percentage), 300);
+            return () => clearTimeout(timer);
+        } else {
+            setCurrentPercent(0);
+        }
+    }, [isUpgraded, percentage]);
+
+    const offset = circumference - (currentPercent / 100) * circumference;
 
     return (
-        <div className="flex flex-col items-center gap-[5px]" style={{ width: '80px', height: '69px' }}>
-            <div className="relative w-[46px] h-[46px] flex items-center justify-center">
-                <svg className="w-full h-full transform -rotate-90">
+        <div
+            className="flex flex-col items-center justify-center bg-white rounded-[5px] shadow-sm transition-all duration-500 relative"
+            style={{ width: '110px', height: '81px' }}
+        >
+            <div className="relative w-[40px] h-[40px] flex items-center justify-center mb-1">
+                {/* 시계 반대 방향 구현: scale-x-[-1]로 좌우 반전 */}
+                <svg className="w-full h-full transform -rotate-90 scale-x-[-1]">
                     <circle
-                        cx="23"
-                        cy="23"
+                        cx="20"
+                        cy="20"
                         r={radius}
-                        stroke="rgba(232, 232, 232, 0.88)"
-                        strokeWidth="4"
+                        stroke="#F3F4F6"
+                        strokeWidth="3.5"
                         fill="transparent"
                     />
                     <circle
-                        cx="23"
-                        cy="23"
+                        cx="20"
+                        cy="20"
                         r={radius}
-                        stroke={color}
-                        strokeWidth="4"
+                        stroke={isUpgraded ? "#A68BFA" : "#E5E7EB"}
+                        strokeWidth="3.5"
                         fill="transparent"
                         strokeDasharray={circumference}
                         strokeDashoffset={offset}
@@ -41,47 +50,49 @@ const MatchCircle = ({ percentage, label, color = "#A68BFA" }: MatchCircleProps)
                         className="transition-all duration-1000 ease-out"
                     />
                 </svg>
-                <span className="absolute font-['Inter'] font-semibold text-[12px] tracking-[-0.02em] text-[#1F2937]">
-                    {percentage}%
+                <span className={`absolute font-['Inter'] font-semibold text-[11px] ${isUpgraded ? 'text-[#1F2937]' : 'text-gray-300'}`}>
+                    {isUpgraded ? `${percentage}%` : '??%'}
                 </span>
             </div>
-            <span className="font-['Inter'] font-medium text-[12px] leading-[18px] tracking-[-0.02em] text-[#000000]">
+            <span className={`font-['Inter'] font-medium text-[12px] leading-[18px] tracking-[-0.02em] ${isUpgraded ? 'text-black' : 'text-gray-400'}`}>
                 {label}
             </span>
         </div>
     );
 };
 
+/**
+ * RightSidebarVer2: 전체 사이드바 패널 컴포넌트 (290x788px)
+ * Figma: Frame 1000004305
+ */
 export const RightSidebarVer2 = ({ className }: { className?: string }) => {
-    // 업그레이드 여부 상태
     const [isUpgraded, setIsUpgraded] = useState(false);
 
     return (
         <div
-            className={`relative overflow-hidden bg-white rounded-[16.77px] border border-[#EDEDED] shadow-sm ${className || ''}`}
-            style={{ width: '290px', height: '787px' }}
+            className={`relative overflow-hidden bg-white rounded-[12px] border border-[#EDEDED] shadow-sm transition-all duration-500 ${className || ''}`}
+            style={{ width: '290px', height: '788px' }}
         >
             {/* 1. Gemini-style Aurora Background */}
-            {/* 왼쪽은 흰색을 유지하면서 오른쪽 영역에만 색상이 부드럽게 번지도록 설정 */}
-            <div className="absolute inset-0 pointer-events-none"
+            <div className="absolute inset-0 pointer-events-none transition-opacity duration-1000"
                 style={{
                     background: `
-                        linear-gradient(to right, 
-                            rgba(255, 255, 255, 1) 0%, 
-                            rgba(255, 255, 255, 0.8) 40%, 
-                            transparent 100%
-                        ),
-                        linear-gradient(to bottom, 
-                            rgba(224, 242, 255, 0.6) 0%,   /* 상단: 푸릇한 파스텔 블루 */
-                            rgba(235, 224, 255, 0.5) 40%,  /* 중간: 부드러운 보라 */
-                            rgba(255, 235, 235, 0.4) 100%  /* 하단: 연한 핑크/레드 */
-                        )
-                    `,
+            linear-gradient(to right, 
+                rgba(255, 255, 255, 1) 0%, 
+                rgba(255, 255, 255, 0.8) 40%, 
+                transparent 100%
+            ),
+            linear-gradient(to bottom, 
+                rgba(224, 242, 255, ${isUpgraded ? 0.6 : 0.3}) 0%, 
+                rgba(235, 224, 255, ${isUpgraded ? 0.5 : 0.2}) 40%, 
+                rgba(255, 235, 235, ${isUpgraded ? 0.4 : 0.1}) 100%
+            )
+          `,
                     zIndex: 0
                 }}
             />
 
-            {/* 제목 섹션 */}
+            {/* Title Area: Why is this job a good fit for me? */}
             <h3
                 className="absolute font-['Inter'] font-semibold text-[16px] text-[#19212D] z-[20]"
                 style={{
@@ -96,89 +107,109 @@ export const RightSidebarVer2 = ({ className }: { className?: string }) => {
                 Why is this job a good fit for me?
             </h3>
 
-            {/* 실제 내용 영역 (isUpgraded가 false일 때 블러처리됨) */}
-            <div className={`relative z-[5] h-full ${!isUpgraded ? 'select-none' : ''}`}>
+            {/* Main Content Area */}
+            <div className={`relative z-[5] h-full flex flex-col transition-all duration-700 ${!isUpgraded ? 'blur-[0.5px] select-none' : 'blur-0'}`}>
 
-                {/* 매칭 지표 그리드 */}
+                {/* 2. Match Rate Grid (Frame 5311): 262x183px, left 14px, top 60px */}
                 <div
-                    className="absolute grid grid-cols-2 gap-x-[20px] gap-y-[15px]"
-                    style={{ left: '35px', top: '75px' }}
+                    className="absolute grid grid-cols-2 gap-[10px]"
+                    style={{ width: '262px', height: '183px', left: '14px', top: '60px', padding: '6px 20px' }}
                 >
-                    <MatchCircle percentage={93} label="Education" />
-                    <MatchCircle percentage={80} label="Work Exp" />
-                    <MatchCircle percentage={93} label="Skills" />
-                    <MatchCircle percentage={44} label="Exp. Level" />
+                    <MatchRateCard percentage={93} label="Education" isUpgraded={isUpgraded} />
+                    <MatchRateCard percentage={80} label="Work Exp" isUpgraded={isUpgraded} />
+                    <MatchRateCard percentage={93} label="Skills" isUpgraded={isUpgraded} />
+                    <MatchRateCard percentage={44} label="Exp. Level" isUpgraded={isUpgraded} />
                 </div>
 
-                {/* 구분선 */}
+                {/* Divider Line (Border line after grid) */}
                 <div
-                    className="absolute border-t border-[rgba(75,75,75,0.47)]"
+                    className="absolute border-t border-[rgba(75,75,75,0.1)]"
                     style={{ width: '257px', left: '16px', top: '252px' }}
                 />
 
-                {/* 상세 분석 리스트 */}
+                {/* 3. Detailed Analysis (Frame 29027): left 13px, top 271px */}
                 <div
-                    className="absolute flex flex-col gap-[0px]"
-                    style={{ left: '16px', top: '271px', width: '247px' }}
+                    className="absolute flex flex-col"
+                    style={{ width: '247px', height: '516px', left: '13px', top: '250px' }}
                 >
-                    <div className="py-[25px] flex flex-col gap-[11px]">
-                        <h4 className="font-semibold text-[14px] leading-[20px] text-black px-[16px]">Relevant Experience ✅</h4>
-                        <p className="text-[14px] leading-[20px] text-black font-normal px-[16px]">
-                            You have substantial experience as a UI/UX Designer, Interaction Designer, and User Research Specialist.
-                        </p>
+
+                    {/* Section: Relevant Experience ✅ (Frame 29026) */}
+                    <div className="flex flex-col items-start gap-[11px] py-[25px] relative" style={{ width: '247px', minHeight: '192px' }}>
+                        <h4 className="font-['Inter'] font-semibold text-[14px] leading-[10px] tracking-[-0.02em] text-black px-[16px]">
+                            Relevant Experience ✅
+                        </h4>
+                        <div className="flex items-start gap-[10px] px-[10px]">
+                            <span className="text-black font-normal text-[20px] leading-[20px]">•</span>
+                            <p className="font-['Inter'] font-normal text-[13px] leading-[20px] tracking-[-0.02em] text-black">
+                                You have substantial experience as a UI/UX Designer, Interaction Designer, and User Research Specialist. Your role at Sohu aligns with designing interaction elements relevant to user experience design for digital products.
+                            </p>
+                        </div>
                     </div>
 
-                    <div className="py-[25px] flex flex-col gap-[10px]">
-                        <h4 className="font-semibold text-[14px] leading-[20px] text-black px-[16px]">Seniority ✅</h4>
-                        <p className="text-[14px] leading-[20px] text-black font-normal px-[16px]">
-                            You have amassed over eight years of relevant experience, meeting the mid-level requirement.
-                        </p>
+                    {/* Section: Seniority ✅ (Frame 29025) */}
+                    <div className="flex flex-col items-start gap-[10px] py-[25px] relative" style={{ width: '236px', minHeight: '131px' }}>
+                        <h4 className="font-['Inter'] font-semibold text-[14px] leading-[10px] tracking-[-0.02em] text-black px-[16px]">
+                            Seniority ✅
+                        </h4>
+                        <div className="flex items-start gap-[10px] px-[10px]">
+                            <span className="text-black font-normal text-[20px] leading-[20px]">•</span>
+                            <p className="font-['Inter'] font-normal text-[13px] leading-[20px] tracking-[-0.02em] text-black">
+                                You have amassed over eight years of relevant experience, meeting the mid-level seniority requirement for the role.
+                            </p>
+                        </div>
                     </div>
 
-                    <div className="py-[25px] flex flex-col gap-[12px]">
-                        <h4 className="font-semibold text-[14px] leading-[20px] text-black px-[16px]">Education ⚠️</h4>
-                        <p className="text-[14px] leading-[20px] text-black font-normal px-[16px]">
-                            While you hold a Master's degree, it doesn't strictly align with the specified fields required.
-                        </p>
+                    {/* Section: Education ⚠️ (Frame 29024) */}
+                    <div className="flex flex-col items-start gap-[12px] py-[20px] relative" style={{ width: '247px', minHeight: '193px' }}>
+                        <h4 className="font-['Inter'] font-semibold text-[14px] leading-[10px] tracking-[-0.02em] text-black px-[16px]">
+                            Education ⚠️
+                        </h4>
+                        <div className="flex items-start gap-[10px] px-[10px]">
+                            <span className="text-black font-normal text-[20px] leading-[20px]">•</span>
+                            <p className="font-['Inter'] font-normal text-[13px] leading-[20px] tracking-[-0.02em] text-black">
+                                While you hold a Master's degree from Politecnico di Milano in Digital and Interaction Design, it doesn't strictly align with the specified fields of Computer Science, Computer Engineering, or Information Science and Technology required by the job.
+                            </p>
+                        </div>
                     </div>
+
                 </div>
             </div>
 
-            {/* 프리미엄 잠금 오버레이 (isUpgraded가 false일 때만 표시) */}
-            {!isUpgraded && (
-                <div
-                    className="absolute inset-0 flex flex-col items-center justify-end pb-[37px] z-[10]"
-                    style={{
-                        top: '54px',
-                        background: 'linear-gradient(180deg, rgba(255, 255, 255, 0) -1.24%, rgba(255, 255, 255, 0.2) 22.39%, rgba(255, 255, 255, 0.4) 100%)',
-                        backdropFilter: 'blur(18px)',
-                        WebkitBackdropFilter: 'blur(18px)'
-                    }}
-                >
-                    {/* 텍스처 오버레이 (노이즈 효과) */}
+            {/* 4. Premium Lock Overlay */}
+            {
+                !isUpgraded && (
                     <div
-                        className="absolute inset-0 opacity-[0.02] pointer-events-none"
-                        style={{ backgroundImage: `url("https://www.transparenttextures.com/patterns/carbon-fibre.png")` }}
-                    />
-
-                    {/* Upgrade to check 버튼 */}
-                    <button
-                        onClick={() => setIsUpgraded(true)}
-                        className="flex flex-row justify-center items-center px-[18px] py-[8px] gap-[10px] bg-[#1F2937] rounded-[43px] shadow-lg transition-all hover:bg-black active:scale-95 group"
+                        className="absolute inset-0 flex flex-col items-center justify-end pb-[37px] z-[30]"
                         style={{
-                            width: '172px',
-                            height: '40px',
+                            top: '54px',
+                            background: 'linear-gradient(180deg, rgba(255, 255, 255, 0) -1.24%, rgba(255, 255, 255, 0.3) 22.39%, rgba(255, 255, 255, 1) 100%)',
+                            backdropFilter: 'blur(18px)',
+                            WebkitBackdropFilter: 'blur(18px)'
                         }}
                     >
-                        <span
-                            className="font-['Inter'] font-normal text-[16px] text-white"
-                            style={{ lineHeight: '150%' }}
+                        {/* Texture Overlay */}
+                        <div className="absolute inset-0 opacity-[0.02] pointer-events-none"
+                            style={{ backgroundImage: `url("https://www.transparenttextures.com/patterns/carbon-fibre.png")` }} />
+
+                        {/* Upgrade Button */}
+                        <button
+                            onClick={() => setIsUpgraded(true)}
+                            className="flex flex-row justify-center items-center px-[18px] py-[8px] gap-[10px] bg-[#1F2937] rounded-[43px] shadow-2xl transition-all hover:bg-black hover:scale-105 active:scale-95 group"
+                            style={{ width: '172px', height: '40px' }}
                         >
-                            Upgrade to check
-                        </span>
-                    </button>
-                </div>
-            )}
-        </div>
+                            <span className="font-['Inter'] font-normal text-[16px] text-white">Upgrade to check</span>
+                        </button>
+                    </div>
+                )
+            }
+        </div >
     );
 };
+
+export default function App() {
+    return (
+        <div className="min-h-screen bg-gray-100 flex items-center justify-center p-10 font-sans">
+            <RightSidebarVer2 />
+        </div>
+    );
+}
