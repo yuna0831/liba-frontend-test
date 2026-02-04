@@ -76,3 +76,43 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
   - **Blur Containment**: Addressed the issue of blur bleeding by enforcing `overflow-hidden` on the panel container, keeping the focus contained.
 - **Interaction Refinement**:
   - Implemented `border-transparent` -> `border-lime` transitions to prevent UI jitters during hover states, ensuring a smooth user experience.
+
+## 2/3 Tuesday
+
+### Time Tracking
+- **Duration**: ~10-11 hours today.
+- **Total Project Time**: ~16-17 hours.
+- **Status**: Frontend ~95% Complete.
+
+### Accomplishments
+
+#### 1. Layout Stabilization & Reversion
+- **Issue**: Attempted a layout expansion (1221px centered) which broke the intended visual density.
+- **Fix**: Successfully reverted to the 870px fixed-width "Feed" layout while maintaining component improvements.
+- **Result**: Restored the precise 3-column structure (Sidebar | Feed | Sticky Right Panel) that matches the Figma design intent.
+
+#### 2. Component Architecture: Job Card
+- **Restructuring**: Refactored `JobCard` into distinct logical sections (Header, Tags, Match Info, Actions).
+- **Visuals**: 
+  - Implemented custom SVG `MatchRateChart` with dynamic color-coding.
+  - Aligned "Apply" and "Save" action buttons with hover states.
+  - Connected `RecommendedList` data to the new card architecture.
+
+#### 3. Feature: Right Sidebar Ver.2 (Premium Analysis)
+- **Interactive "Lock" Mechanism**:
+  - Implemented a "Premium Lock" overlay with `backdrop-filter: blur(18px)` and carbon-fiber texture.
+  - Added an "Upgrade to check" trigger that reveals the underlying analysis.
+- **Visual Effects**:
+  - **Gemini-Style Aurora**: Created a complex multi-stop linear gradient background.
+  - **Animated Gauges**: Built `MatchRateCard` components that animate (fill) upon unlocking.
+- **Detailed View**: Added the "Why is this job a good fit?" section with specific feedback items (Seniority, Education, Experience).
+
+#### 4. Code Quality & Fixes
+- **TypeScript**: Resolved implicit `any` type errors and fixed module export mismatches (`RightSidebarVer2`).
+- **JSX**: Cleaned up duplicate attributes and prop drilling issues.
+- **Props**: Standardized `className` propagation to allow parent components to control positioning logic.
+
+### Challenges & Bottlenecks
+- **Layout "Undo" Complexity**: The decision to revert the main layout structure mid-stream was costly. It required identifying and rolling back specific CSS changes across global files (`page.tsx`) while preserving the component-level updates made during that time.
+- **SVG Math**: Implementing the circular progress gauges (handling `stroke-dasharray` and `stroke-dashoffset`) for the match cards required precise calculation to ensure they filled in the correct direction (counter-clockwise) and scale.
+- **Formatting Conflicts**: Spent time reconciling "Prettier" formatting rules with "Pixel Perfect" Figma strictness (e.g., line heights and letter spacing).
