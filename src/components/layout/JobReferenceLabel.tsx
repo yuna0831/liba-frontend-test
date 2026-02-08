@@ -8,9 +8,9 @@ interface JobReferenceLabelProps {
 
 export function JobReferenceLabel({ className }: JobReferenceLabelProps) {
     return (
-        /* 레이아웃 너비는 이전의 900px 정렬 기준(728px)을 유지합니다 */
+        /* 레이아웃 너비는 이전의 900px 정렬 기준(728px)을 유지합니다 -> Mobile Responsive */
         <div className={twMerge(clsx(
-            "w-[728px] h-[40px] bg-[#A68BFA] border border-[#E8E8E8] rounded-[31px]",
+            "w-full max-w-[728px] h-[40px] bg-[#A68BFA] border border-[#E8E8E8] rounded-[31px]",
             "flex justify-center items-center gap-[10px] px-[16px] py-[8px]",
             "z-10 shadow-sm cursor-pointer hover:bg-[#9778F5] transition-colors",
             className

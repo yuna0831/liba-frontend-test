@@ -30,11 +30,12 @@ export function JobCard({ title, company, location, type, salary, tags, logo, ma
     };
 
     return (
-        <div className="w-[900px] h-[261px] bg-white rounded-[12.94px] border border-[#EDEDED] relative overflow-hidden group hover:shadow-md transition-shadow mb-[6px]">
+        <div className="w-full max-w-[900px] bg-white rounded-[12.94px] border border-[#EDEDED] relative overflow-hidden group hover:shadow-md transition-shadow mb-[6px] flex flex-col">
 
-            {/* 1. TOP SECTION (정보 복구됨) */}
-            <div className="absolute w-[850px] h-[124px] left-[25px] top-[7px] flex items-center gap-[24px]">
-                <div className="flex-none w-[107px] h-[107px] relative">
+            {/* 1. TOP SECTION */}
+            <div className="p-[25px] pb-0 flex flex-col md:flex-row gap-[24px]">
+                {/* Chart Section */}
+                <div className="flex-none w-[107px] h-[107px] relative mx-auto md:mx-0">
                     <MatchRateChart percentage={matchScore || 64} size={107} color={matchColor || '#FFD035'} />
                     <span className="absolute font-[family-name:var(--font-inter)] font-normal text-[#1F2937] text-center"
                         style={{
@@ -46,13 +47,14 @@ export function JobCard({ title, company, location, type, salary, tags, logo, ma
                     </span>
                 </div>
 
-                <div className="relative flex-1 h-[89.5px]">
+                {/* Info Section */}
+                <div className="flex-1 flex flex-col gap-2 md:block relative">
                     {/* 타이틀 및 우측 아이콘 */}
-                    <div className="absolute top-[-2px] left-0 w-full flex justify-between items-start">
-                        <h3 className="text-[23px] font-semibold text-black leading-tight tracking-[-0.02em] font-[family-name:var(--font-inter)] line-clamp-1 max-w-[650px]">
+                    <div className="w-full flex justify-between items-start mb-2 md:mb-0">
+                        <h3 className="text-[20px] md:text-[23px] font-semibold text-black leading-tight tracking-[-0.02em] font-[family-name:var(--font-inter)] line-clamp-2 md:line-clamp-1 max-w-full md:max-w-[650px]">
                             {title}
                         </h3>
-                        <div className="flex items-center gap-[15px] pt-[6.8px]">
+                        <div className="flex items-center gap-[15px] pt-[6.8px] flex-shrink-0 ml-2">
                             {/* url.png 아이콘으로 교체 */}
                             <div className="w-[19.41px] h-[19.41px] cursor-pointer flex items-center justify-center">
                                 <img
@@ -71,22 +73,22 @@ export function JobCard({ title, company, location, type, salary, tags, logo, ma
                     </div>
 
                     {/* [복구] 회사 정보 */}
-                    <div className="absolute top-[38px] left-0 flex items-center gap-[8px]">
-                        <div className="w-[22px] h-[22px] bg-[#F3F4F6] rounded-sm flex items-center justify-center text-[11px] text-gray-400 font-bold overflow-hidden">
+                    <div className="flex items-center gap-[8px] md:absolute md:top-[38px] md:left-0 mb-2 md:mb-0">
+                        <div className="w-[22px] h-[22px] bg-[#F3F4F6] rounded-sm flex items-center justify-center text-[11px] text-gray-400 font-bold overflow-hidden flex-shrink-0">
                             {logo ? <img src={logo} alt={company} className="w-full h-full object-cover" /> : company.charAt(0)}
                         </div>
-                        <span className="text-[15.5px] font-medium text-[#A9A9A9]">{company}</span>
+                        <span className="text-[15.5px] font-medium text-[#A9A9A9] truncate">{company}</span>
                     </div>
 
                     {/* [복구] 위치 및 근무 형태 */}
-                    <div className="absolute top-[68px] left-0 flex items-center gap-[14px]">
+                    <div className="flex flex-wrap items-center gap-[14px] md:absolute md:top-[68px] md:left-0">
                         <div className="flex items-center gap-[5px]">
                             <MapPin className="w-[15px] h-[15px] text-[#1F2937]" />
                             <span className="font-[family-name:var(--font-inter)] font-normal text-[#1F2937]" style={{ fontSize: '15.0957px', lineHeight: '130%' }}>
                                 {location}
                             </span>
                         </div>
-                        <div className="w-[6px] h-[6px] bg-[#734AE2] rounded-full" />
+                        <div className="hidden md:block w-[6px] h-[6px] bg-[#734AE2] rounded-full" />
 
                         {/* On-site 섹션: wifi.png 아이콘 추가 */}
                         <div className="flex items-center gap-[8px]">
@@ -107,8 +109,13 @@ export function JobCard({ title, company, location, type, salary, tags, logo, ma
             </div>
 
             {/* 2. MIDDLE SECTION (Tags & Salary) */}
-            <div className="absolute w-[850px] h-[59px] left-[25px] top-[131px] border-b-[1px] border-[#EDEDED] flex items-center">
-                <div className="flex flex-row gap-[6.47px] w-full">
+            <div className="w-[calc(100%-50px)] mx-[25px] mt-[20px] pb-[15px] border-b-[1px] border-[#EDEDED] flex items-center md:mt-[7px] md:pb-[15px] md:h-[59px] md:border-b md:absolute md:top-[120px] md:left-0 md:w-full md:px-[25px] md:mx-0">
+                {/* Desktop: absolute positioning adjustments were tricky with flex, simplified to block flow on mobile, structure on desktop */}
+                {/* Re-implementing with flex structure that works for both */}
+            </div>
+
+            <div className="px-[25px] py-[15px] border-b border-[#EDEDED] mx-[25px] w-[calc(100%-50px)] md:mx-0 md:w-full md:px-[25px] md:py-[13px]">
+                <div className="flex flex-wrap gap-[6.47px] w-full">
                     {tags && tags.map((tag, index) => (
                         <div key={index} className="px-[12.94px] py-[2.16px] border border-[#E8E8E8] rounded-[30.19px] bg-white flex items-center justify-center h-[30px]">
                             <span className="font-[family-name:var(--font-inter)] font-normal text-[#1F2937] text-[14px] leading-[22px] tracking-[-0.02em] whitespace-nowrap">
@@ -127,8 +134,8 @@ export function JobCard({ title, company, location, type, salary, tags, logo, ma
             </div>
 
             {/* 3. BOTTOM SECTION (Actions) */}
-            <div className="absolute w-[850px] h-[69px] left-[25px] top-[190px] flex items-center justify-between">
-                <div className="flex items-center gap-[7.55px]">
+            <div className="px-[25px] py-[15px] flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0">
+                <div className="flex items-center gap-[7.55px] w-full md:w-auto justify-between md:justify-start">
                     <div
                         className="flex items-center justify-center rounded-[34.5px] px-[12.94px]"
                         style={{ minWidth: '100px', height: '26.31px', background: 'rgba(115, 74, 226, 0.12)' }}
@@ -142,16 +149,16 @@ export function JobCard({ title, company, location, type, salary, tags, logo, ma
                     </span>
                 </div>
 
-                <div className="flex items-center gap-[10.78px]">
+                <div className="flex items-center gap-[10.78px] w-full md:w-auto">
                     <button
                         onClick={handleApplyClick}
-                        className="flex items-center justify-center bg-white border border-[rgba(177,174,174,0.5)] rounded-[46.36px] hover:bg-gray-50 transition-colors"
-                        style={{ width: '84.82px', height: '43.13px' }}
+                        className="flex items-center justify-center bg-white border border-[rgba(177,174,174,0.5)] rounded-[46.36px] hover:bg-gray-50 transition-colors flex-1 md:flex-none"
+                        style={{ height: '43.13px', width: 'auto', minWidth: '84.82px' }}
                     >
                         <span className="text-[17.25px] font-medium text-[#1F2937]">Apply</span>
                     </button>
-                    <button className="flex items-center justify-center bg-[#B9FD33] rounded-[46.36px]" style={{ width: '161.82px', height: '43.13px' }}>
-                        <span className="text-[17.25px] font-medium text-[#1F2937]">Mock Interview</span>
+                    <button className="flex items-center justify-center bg-[#B9FD33] rounded-[46.36px] flex-[2] md:flex-none" style={{ height: '43.13px', width: 'auto', minWidth: '161.82px' }}>
+                        <span className="text-[17.25px] font-medium text-[#1F2937] whitespace-nowrap px-4">Mock Interview</span>
                     </button>
                 </div>
             </div>

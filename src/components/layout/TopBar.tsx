@@ -8,7 +8,7 @@ interface TopBarProps {
 
 export function TopBar({ className }: TopBarProps) {
     return (
-        <div className={twMerge(clsx("w-full h-[80px] bg-[#FFFFFF] border-b border-[#E5E7EB] flex items-center px-[40px] z-50", className))}>
+        <div className={twMerge(clsx("w-full h-[80px] bg-[#FFFFFF] border-b border-[#E5E7EB] flex items-center px-4 md:px-[40px] z-50 overflow-x-auto", className))}>
 
             {/* Tabs Group */}
             <div className="flex items-center gap-[1px]">

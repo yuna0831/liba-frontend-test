@@ -27,8 +27,8 @@ const MatchRateCard = ({ percentage, label, isUpgraded }: { percentage: number; 
             style={{ width: '110px', height: '81px' }}
         >
             <div className="relative w-[40px] h-[40px] flex items-center justify-center mb-1">
-                {/* 시계 반대 방향 구현: scale-x-[-1]로 좌우 반전 */}
-                <svg className="w-full h-full transform -rotate-90 scale-x-[-1]">
+                {/* 시계 반대 방향 구현: scale-y-[-1]로 상하 반전 */}
+                <svg className="w-full h-full transform -rotate-90 scale-y-[-1]">
                     <circle
                         cx="20"
                         cy="20"

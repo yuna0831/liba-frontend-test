@@ -24,17 +24,17 @@ export default function Home() {
             {/* 중앙 컨테이너: 900px(카드) + 40px(간격) + 260px(사이드바) = 총 1200px 
                 이 설정을 통해 사라졌던 오른쪽 사이드바가 화면 안으로 들어옵니다.
             */}
-            <div className="max-w-[1200px] mx-auto flex justify-between items-start">
+            <div className="w-full max-w-[1200px] mx-auto flex justify-between items-start">
 
-              {/* 왼쪽: 잡카드 리스트 (900px로 조정) */}
-              <div className="flex flex-col w-[900px] shrink-0">
+              {/* 왼쪽: 잡카드 리스트 (900px로 조정 -> Mobile Responsive) */}
+              <div className="flex flex-col w-full max-w-[900px] shrink-0">
                 {/* Label(728) + Gap(10) + Button(162) = 900px */}
-                <div className="flex items-center gap-[10px] mb-[15px] w-[900px]">
+                <div className="flex flex-col md:flex-row items-start md:items-center gap-[10px] mb-[15px] w-full">
                   <JobReferenceLabel />
                   <TopMatchedButton />
                 </div>
 
-                <div className="w-[900px]">
+                <div className="w-full">
                   <RecommendedList />
                 </div>
               </div>
