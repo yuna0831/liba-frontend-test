@@ -4,6 +4,7 @@ import { Link2, Heart, MapPin, Radio } from 'lucide-react';
 import { MatchRateChart } from '@/app/jobs/MatchRateChart';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 
 interface JobCardProps {
     title: string;
@@ -30,7 +31,12 @@ export function JobCard({ title, company, location, type, salary, tags, logo, ma
     };
 
     return (
-        <div className="w-full max-w-[900px] bg-white rounded-[12.94px] border border-[#EDEDED] relative overflow-hidden group hover:shadow-md transition-shadow mb-[6px] flex flex-col">
+        <motion.div
+            className="w-full max-w-[900px] bg-white rounded-[12.94px] border border-[#EDEDED] relative overflow-hidden group hover:shadow-lg transition-shadow mb-[6px] flex flex-col cursor-pointer"
+            whileHover={{ y: -2, transition: { duration: 0.2 } }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+        >
 
             {/* 1. TOP SECTION */}
             <div className="p-[25px] pb-0 flex flex-col md:flex-row gap-[24px]">
@@ -56,19 +62,38 @@ export function JobCard({ title, company, location, type, salary, tags, logo, ma
                         </h3>
                         <div className="flex items-center gap-[15px] pt-[6.8px] flex-shrink-0 ml-2">
                             {/* url.png 아이콘으로 교체 */}
-                            <div className="w-[19.41px] h-[19.41px] cursor-pointer flex items-center justify-center">
+                            <motion.div
+                                className="w-[19.41px] h-[19.41px] cursor-pointer flex items-center justify-center"
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                            >
                                 <img
                                     src="/url.png"
                                     alt="link"
                                     className="w-full h-full object-contain"
                                 />
-                            </div>
+                            </motion.div>
 
-                            {/* 하트 아이콘 (상태 유지) */}
-                            <Heart
+                            {/* Heart Icon (Toggle between default and purple_heart.png) */}
+                            <motion.div
+                                whileTap={{ scale: 0.8 }}
+                                animate={{ scale: isLiked ? [1, 1.2, 1] : 1 }}
+                                transition={{ duration: 0.3 }}
+                                className="cursor-pointer flex items-center justify-center w-[19.41px] h-[19.41px]"
                                 onClick={(e) => { e.stopPropagation(); setIsLiked(!isLiked); }}
-                                className={`w-[19.41px] h-[19.41px] cursor-pointer transition-colors ${isLiked ? 'fill-red-500 text-red-500' : 'text-[#1F2937]'}`}
-                            />
+                            >
+                                {isLiked ? (
+                                    <img
+                                        src="/purple_heart.png"
+                                        alt="Liked"
+                                        className="w-full h-full object-contain"
+                                    />
+                                ) : (
+                                    <Heart
+                                        className="w-full h-full text-[#1F2937]"
+                                    />
+                                )}
+                            </motion.div>
                         </div>
                     </div>
 
@@ -109,12 +134,8 @@ export function JobCard({ title, company, location, type, salary, tags, logo, ma
             </div>
 
             {/* 2. MIDDLE SECTION (Tags & Salary) */}
-            <div className="w-[calc(100%-50px)] mx-[25px] mt-[20px] pb-[15px] border-b-[1px] border-[#EDEDED] flex items-center md:mt-[7px] md:pb-[15px] md:h-[59px] md:border-b md:absolute md:top-[120px] md:left-0 md:w-full md:px-[25px] md:mx-0">
-                {/* Desktop: absolute positioning adjustments were tricky with flex, simplified to block flow on mobile, structure on desktop */}
-                {/* Re-implementing with flex structure that works for both */}
-            </div>
 
-            <div className="px-[25px] py-[15px] border-b border-[#EDEDED] mx-[25px] w-[calc(100%-50px)] md:mx-0 md:w-full md:px-[25px] md:py-[13px]">
+            <div className="mx-[25px] w-[calc(100%-50px)] py-[15px] border-b border-[#EDEDED] md:mx-[25px] md:w-[calc(100%-50px)] md:px-0 md:py-[13px]">
                 <div className="flex flex-wrap gap-[6.47px] w-full">
                     {tags && tags.map((tag, index) => (
                         <div key={index} className="px-[12.94px] py-[2.16px] border border-[#E8E8E8] rounded-[30.19px] bg-white flex items-center justify-center h-[30px]">
@@ -150,18 +171,24 @@ export function JobCard({ title, company, location, type, salary, tags, logo, ma
                 </div>
 
                 <div className="flex items-center gap-[10.78px] w-full md:w-auto">
-                    <button
+                    <motion.button
                         onClick={handleApplyClick}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                         className="flex items-center justify-center bg-white border border-[rgba(177,174,174,0.5)] rounded-[46.36px] hover:bg-gray-50 transition-colors flex-1 md:flex-none"
                         style={{ height: '43.13px', width: 'auto', minWidth: '84.82px' }}
                     >
                         <span className="text-[17.25px] font-medium text-[#1F2937]">Apply</span>
-                    </button>
-                    <button className="flex items-center justify-center bg-[#B9FD33] rounded-[46.36px] flex-[2] md:flex-none" style={{ height: '43.13px', width: 'auto', minWidth: '161.82px' }}>
+                    </motion.button>
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex items-center justify-center bg-[#B9FD33] rounded-[46.36px] flex-[2] md:flex-none cursor-pointer" style={{ height: '43.13px', width: 'auto', minWidth: '161.82px' }}
+                    >
                         <span className="text-[17.25px] font-medium text-[#1F2937] whitespace-nowrap px-4">Mock Interview</span>
-                    </button>
+                    </motion.button>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }

@@ -24,7 +24,10 @@ export default function Home() {
             {/* 중앙 컨테이너: 900px(카드) + 40px(간격) + 260px(사이드바) = 총 1200px 
                 이 설정을 통해 사라졌던 오른쪽 사이드바가 화면 안으로 들어옵니다.
             */}
-            <div className="w-full max-w-[1200px] mx-auto flex justify-between items-start">
+            {/* 중앙 컨테이너: 900px(카드) + 40px(간격) + 260px(사이드바) = 총 1200px 
+                이 설정을 통해 사라졌던 오른쪽 사이드바가 화면 안으로 들어옵니다.
+            */}
+            <div className="w-full max-w-[1200px] mx-auto flex flex-col xl:flex-row justify-between items-start gap-10 xl:gap-0">
 
               {/* 왼쪽: 잡카드 리스트 (900px로 조정 -> Mobile Responsive) */}
               <div className="flex flex-col w-full max-w-[900px] shrink-0">
@@ -39,10 +42,13 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* 오른쪽: 사이드바 (260px로 슬림화 및 밀착) */}
-              <div className="hidden xl:block w-[260px] shrink-0 ml-[40px]">
-                <div className="sticky top-[102px]">
-                  <RightSidebarPanel className="w-[260px] h-[790px] border-none shadow-none bg-transparent" />
+              {/* 오른쪽: 사이드바 (260px로 슬림화 및 밀착) 
+                  Mobile: 보여야 함 (Stack at bottom)
+                  Desktop: Side
+              */}
+              <div className="w-full max-w-[900px] xl:w-[260px] shrink-0 xl:ml-[40px] flex justify-center xl:block">
+                <div className="xl:sticky xl:top-[102px]">
+                  <RightSidebarPanel className="w-full max-w-[290px] xl:w-[260px] h-[790px] border-none shadow-none bg-transparent mx-auto" />
                 </div>
               </div>
 

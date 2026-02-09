@@ -49,13 +49,13 @@ export default function JobDetailPage() {
                 <div className="flex-1 flex flex-col min-w-0 bg-[#F3F4F6] relative">
                     <TopBar className="sticky top-0 z-40 w-full h-[80px] bg-white shadow-sm" />
 
-                    <main className="flex-1 w-full pt-[22px] px-[20px]">
-                        <div className="max-w-[1200px] mx-auto flex justify-between items-start">
+                    <main className="flex-1 w-full pt-[22px] px-[20px] pb-10">
+                        <div className="max-w-[1200px] mx-auto flex flex-col xl:flex-row justify-between items-start gap-10 xl:gap-0">
 
-                            <div className="flex flex-col w-[900px] shrink-0 bg-white rounded-[16.77px] p-[30px] border border-[#EDEDED] min-h-[1000px] mb-10">
+                            <div className="flex flex-col w-full max-w-[900px] shrink-0 bg-white rounded-[16.77px] p-[20px] md:p-[30px] border border-[#EDEDED] min-h-[1000px] mb-10">
 
                                 {/* 1. 상단 액션바: Applicants 태그 유지 */}
-                                <div className="flex justify-between items-center mb-8">
+                                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 md:gap-0">
                                     <div className="flex items-center gap-[12px]">
                                         <button onClick={() => router.back()} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
                                             <ArrowLeft className="w-6 h-6 text-[#1F2937]" />
@@ -67,7 +67,7 @@ export default function JobDetailPage() {
                                         </div>
                                     </div>
 
-                                    <div className="flex items-center gap-[15px]">
+                                    <div className="flex items-center gap-[15px] self-end md:self-auto">
                                         <button className="flex items-center justify-center transition-opacity hover:opacity-70">
                                             <img src="/share.png" alt="share" style={{ width: '18.73px', height: '18.73px' }} className="object-contain" />
                                         </button>
@@ -89,26 +89,26 @@ export default function JobDetailPage() {
                                 </div>
 
                                 {/* 2. 헤더 섹션: 2 hours ago 스타일 수정 및 테두리 제거 */}
-                                <div className="flex justify-between items-start mb-10">
-                                    <div className="flex gap-6">
+                                <div className="flex flex-col md:flex-row justify-between items-start mb-10 gap-6 md:gap-0">
+                                    <div className="flex gap-6 w-full md:w-auto">
                                         <div className="flex items-center justify-center shrink-0" style={{ width: '90px', height: '90px' }}>
                                             <img src="/google_logo.png" alt="Google" style={{ width: '90px', height: '90px' }} className="object-contain" />
                                         </div>
 
-                                        <div className="flex flex-col justify-center">
+                                        <div className="flex flex-col justify-center min-w-0 flex-1">
                                             {/* 2 hours ago: 배경 제거, 피그마 명세(14px, #1F2937) 반영 */}
                                             <div style={{ width: '76px', height: '22px' }} className="mb-1 flex items-center">
                                                 <span className="font-['Inter'] font-normal text-[14px] leading-[22px] tracking-[-0.02em] text-[#1F2937]" style={{ fontFeatureSettings: "'calt' off" }}>
                                                     2 hours ago
                                                 </span>
                                             </div>
-                                            <h1 className="font-['Inter'] font-semibold text-[23px] leading-[30px] tracking-[-0.02em] text-black" style={{ fontFeatureSettings: "'calt' off" }}>
+                                            <h1 className="font-['Inter'] font-semibold text-[20px] md:text-[23px] leading-[30px] tracking-[-0.02em] text-black break-words" style={{ fontFeatureSettings: "'calt' off" }}>
                                                 UX Designer
                                             </h1>
                                             <span className="font-['Inter'] font-medium text-[16px] leading-[20px] tracking-[-0.02em] text-[#A9A9A9] mt-1" style={{ fontFeatureSettings: "'calt' off" }}>
                                                 Google
                                             </span>
-                                            <div className="flex items-center gap-[12px] mt-2">
+                                            <div className="flex flex-wrap items-center gap-[12px] mt-2">
                                                 <div className="flex items-center gap-[4px]">
                                                     <MapPin className="w-[14px] h-[14px] text-[#1F2937]" />
                                                     <span className="font-['Inter'] text-[14px] text-[#1F2937]">Ann Arbor, MI</span>
@@ -123,14 +123,13 @@ export default function JobDetailPage() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="relative w-[110px] h-[110px]">
+                                    <div className="relative w-[110px] h-[110px] self-center md:self-start shrink-0">
                                         <MatchRateChart percentage={matchNum} size={110} color="#B9FD33" />
-
                                     </div>
                                 </div>
 
                                 {/* 3. 정보 그리드 및 배너 생략 (기존 스타일 유지) */}
-                                <div className="grid grid-cols-3 gap-y-[20px] py-[0px]">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-[20px] py-[0px] w-full">
                                     <div className="flex items-center gap-[10px]">
                                         <MapPin className="w-[20px] h-[20px] text-[#717171]" />
                                         <span className="font-['Inter'] text-[14px] text-[#717171]">United States</span>
@@ -159,10 +158,10 @@ export default function JobDetailPage() {
 
                                 {/* 3. Job Description 섹션 (Frame 176 기반) */}
                                 <div
-                                    className="flex flex-row items-center py-[25px] px-0 gap-[38px] mt-[35px]" // mt-[40px] 추가 (원하는 만큼 숫자 조절)
-                                    style={{ width: '821px', minHeight: '98px' }}
+                                    className="flex flex-row items-center py-[25px] px-0 gap-[38px] mt-[35px] w-full"
+                                    style={{ minHeight: '98px' }}
                                 >
-                                    <p className="font-['Inter'] font-normal text-[14px] leading-[22px] tracking-[-0.02em] text-[#4B5563]">
+                                    <p className="font-['Inter'] font-normal text-[14px] leading-[22px] tracking-[-0.02em] text-[#4B5563] w-full break-words">
                                         Job description Job description Job description Job description Job description
                                         Job description Job description Job description Job description Job description
                                         Job description Job description Job description Job description Job description
@@ -172,18 +171,16 @@ export default function JobDetailPage() {
 
                                 {/* AI Interview Banner (Frame 1000004320) */}
                                 <div
-                                    className="flex flex-col items-center p-[0px_26px_24px] gap-[15px] bg-[#B9FD33] rounded-[24px] self-stretch mb-[40px]"
-                                    style={{ width: '821px', height: '311px' }}
+                                    className="flex flex-col items-center p-[20px] md:p-[0px_26px_24px] gap-[15px] bg-[#B9FD33] rounded-[24px] self-stretch mb-[40px] w-full h-auto"
                                 >
                                     {/* Upper Section (기존 동일) */}
                                     <div
-                                        className="flex flex-row items-center p-[24px_0px] gap-[23px] border-b border-[rgba(14,16,17,0.24)] self-stretch"
-                                        style={{ width: '769px', height: '122px' }}
+                                        className="flex flex-col md:flex-row items-center p-[24px_0px] gap-[23px] border-b border-[rgba(14,16,17,0.24)] self-stretch w-full h-auto"
                                     >
                                         <div className="shrink-0" style={{ width: '48px', height: '48px' }}>
                                             <img src="/info_icon.png" alt="AI Icon" className="w-full h-full object-contain" />
                                         </div>
-                                        <div className="flex flex-col justify-center items-start p-0 gap-[10px]" style={{ width: '529px', height: '74px' }}>
+                                        <div className="flex flex-col justify-center items-start p-0 gap-[10px] w-full h-auto">
                                             <h3 className="font-['Inter'] font-semibold text-[18px] leading-[20px] tracking-[-0.02em] text-[#000000]">Maximize your interview success</h3>
                                             <p className="font-['Inter'] font-normal text-[14px] leading-[22px] tracking-[-0.02em] text-[rgba(14,16,17,0.6)] self-stretch">
                                                 Our platform simulates real interview scenarios, helping you refine your responses and boost your confidence.
@@ -193,8 +190,7 @@ export default function JobDetailPage() {
 
                                     {/* Lower Section: 3-Column Features (Frame 1000004323) */}
                                     <div
-                                        className="flex flex-row items-start p-0 gap-[23px] self-stretch mt-[0px]"
-                                        style={{ width: '769px', height: '95px' }}
+                                        className="flex flex-col md:flex-row items-start p-0 gap-[23px] self-stretch mt-[0px] w-full h-auto"
                                     >
                                         {[
                                             {
@@ -210,7 +206,7 @@ export default function JobDetailPage() {
                                                 desc: "Perfect your interview skills and increase your chances of landing the job you want."
                                             }
                                         ].map((feature, idx) => (
-                                            <div key={idx} className="flex flex-col items-start p-0 gap-[5px]" style={{ width: '241px' }}>
+                                            <div key={idx} className="flex flex-col items-start p-0 gap-[5px] w-full md:w-[241px]">
                                                 {/* 한 줄 고정을 위해 width를 auto로 하거나 충분히 넓히고 whitespace-nowrap 추가 */}
                                                 <h4
                                                     className="font-['Inter'] font-semibold text-[16px] text-[#1F2937] whitespace-nowrap"
@@ -224,8 +220,8 @@ export default function JobDetailPage() {
                                                 </h4>
 
                                                 <p
-                                                    className="font-['Inter'] font-normal text-[14px] leading-[22px] tracking-[-0.02em] text-[rgba(14,16,17,0.6)] self-stretch"
-                                                    style={{ height: '66px', fontFeatureSettings: "'calt' off" }}
+                                                    className="font-['Inter'] font-normal text-[14px] leading-[22px] tracking-[-0.02em] text-[rgba(14,16,17,0.6)] self-stretch h-auto"
+                                                    style={{ fontFeatureSettings: "'calt' off" }}
                                                 >
                                                     {feature.desc}
                                                 </p>
@@ -250,17 +246,15 @@ export default function JobDetailPage() {
 
                                 {/* Qualification Section (Frame 178) */}
                                 <div
-                                    className="flex flex-col py-[12px] gap-[24px] self-stretch"
-                                    style={{ width: '821px' }}
+                                    className="flex flex-col py-[12px] gap-[24px] self-stretch w-full"
                                 >
                                     {/* Qualification Section Header (수정된 20px 스타일) */}
-                                    <div className="flex flex-row items-center p-0 gap-[6px]" style={{ width: '821px', height: '26px' }}>
+                                    <div className="flex flex-row items-center p-0 gap-[6px] w-full h-[26px]">
                                         <h2
                                             className="font-['Inter'] font-semibold text-[20px] text-black"
                                             style={{
                                                 lineHeight: '130%',
                                                 letterSpacing: '-0.5px', // 피그마 수치 반영
-                                                width: '117px',
                                                 height: '26px',
                                                 fontFeatureSettings: "'calt' off"
                                             }}
@@ -271,16 +265,15 @@ export default function JobDetailPage() {
 
                                     {/* Description Text */}
                                     <p
-                                        className="font-['Inter'] font-normal text-[14px] leading-[22px] tracking-[-0.02em] text-[#000000]"
-                                        style={{ width: '784px', height: '44px', fontFeatureSettings: "'calt' off" }}
+                                        className="font-['Inter'] font-normal text-[14px] leading-[22px] tracking-[-0.02em] text-[#000000] w-full h-auto"
+                                        style={{ fontFeatureSettings: "'calt' off" }}
                                     >
                                         Discover how your skills align with the requirements of this position. Below is a detailed list of the essential skills needed for the role.
                                     </p>
 
                                     {/* Qualification Tags Container */}
                                     <div
-                                        className="flex flex-row flex-wrap items-center content-start p-0 gap-[12px_8px]"
-                                        style={{ width: '784px' }}
+                                        className="flex flex-row flex-wrap items-center content-start p-0 gap-[12px_8px] w-full"
                                     >
                                         {[
                                             "Accidental Death and Dismemberment (AD&D)",
@@ -294,11 +287,11 @@ export default function JobDetailPage() {
                                         ].map((tag, index) => (
                                             <div
                                                 key={index}
-                                                className="flex flex-row items-center px-[12px] py-[6px] bg-[#F3F4F6] rounded-[33px] shrink-0"
+                                                className="flex flex-row items-center px-[12px] py-[6px] bg-[#F3F4F6] rounded-[33px] shrink-0 max-w-full"
                                                 style={{ height: '34px' }}
                                             >
                                                 <span
-                                                    className="font-['Inter'] font-normal text-[14px] leading-[22px] tracking-[-0.02em] text-[#1F2937] whitespace-nowrap"
+                                                    className="font-['Inter'] font-normal text-[14px] leading-[22px] tracking-[-0.02em] text-[#1F2937] whitespace-nowrap truncate"
                                                     style={{ fontFeatureSettings: "'calt' off" }}
                                                 >
                                                     {tag}
@@ -309,8 +302,7 @@ export default function JobDetailPage() {
                                 </div>
                                 {/* 2. Required Section (불릿 중앙 정렬 수정) */}
                                 <div
-                                    className="flex flex-col gap-[15px] self-stretch py-[24px]"
-                                    style={{ width: '804px' }}
+                                    className="flex flex-col gap-[15px] self-stretch py-[24px] w-full"
                                 >
                                     <div style={{ height: '23px' }}>
                                         <h3
@@ -325,7 +317,7 @@ export default function JobDetailPage() {
                                         </h3>
                                     </div>
 
-                                    <div className="flex flex-col justify-center items-start p-0 gap-[10px]">
+                                    <div className="flex flex-col justify-center items-start p-0 gap-[10px] w-full">
                                         {[
                                             "3+ years of design experience",
                                             "3+ years of delivering design solutions as a UX designer or interaction designer experience",
@@ -334,7 +326,7 @@ export default function JobDetailPage() {
                                         ].map((item, index) => (
                                             <div key={index} className="flex flex-row items-start gap-[10px] self-stretch">
                                                 {/* 불릿 기호를 텍스트 첫 줄의 leading 값과 맞추어 세로 중앙 정렬 */}
-                                                <span className="text-black text-[20px] leading-[22px] flex items-center justify-center">•</span>
+                                                <span className="text-black text-[20px] leading-[22px] flex items-center justify-center shrink-0">•</span>
                                                 <p
                                                     className="font-['Inter'] font-normal text-[14px] leading-[22px] tracking-[-0.02em] text-[#000000]"
                                                     style={{ fontFeatureSettings: "'calt' off" }}
@@ -347,8 +339,7 @@ export default function JobDetailPage() {
                                 </div>
                                 {/* 3. Preferred Section (Required 바로 밑에 위치) */}
                                 <div
-                                    className="flex flex-col gap-[15px] self-stretch py-[24px]"
-                                    style={{ width: '804px' }}
+                                    className="flex flex-col gap-[15px] self-stretch py-[24px] w-full"
                                 >
                                     {/* Preferred Title Section */}
                                     <div style={{ height: '23px' }}>
@@ -365,14 +356,14 @@ export default function JobDetailPage() {
                                     </div>
 
                                     {/* Preferred List (요청하신 불릿 스타일 적용) */}
-                                    <div className="flex flex-col justify-center items-start p-0 gap-[10px]">
+                                    <div className="flex flex-col justify-center items-start p-0 gap-[10px] w-full">
                                         {[
                                             "2+ years of mass-market consumer web / mobile products experience",
                                             "Experience working in a collaborative team and working directly with developers for implementation of designs"
                                         ].map((item, index) => (
                                             <div key={index} className="flex flex-row items-start gap-[10px] self-stretch">
                                                 {/* 요청하신 불릿 스타일: 20px 크기 + 22px leading 중앙 정렬 */}
-                                                <span className="text-black text-[20px] leading-[22px] flex items-center justify-center">•</span>
+                                                <span className="text-black text-[20px] leading-[22px] flex items-center justify-center shrink-0">•</span>
                                                 <p
                                                     className="font-['Inter'] font-normal text-[14px] leading-[22px] tracking-[-0.02em] text-[#000000]"
                                                     style={{ fontFeatureSettings: "'calt' off" }}
@@ -385,11 +376,10 @@ export default function JobDetailPage() {
                                 </div>
                                 {/* 4. Responsibilities Section (Frame 180) */}
                                 <div
-                                    className="flex flex-col py-[12px] gap-[24px] self-stretch mt-[40px]"
-                                    style={{ width: '821px' }}
+                                    className="flex flex-col py-[12px] gap-[24px] self-stretch mt-[40px] w-full"
                                 >
                                     {/* Responsibilities Header (Qualification과 동일한 20px 스타일) */}
-                                    <div className="flex flex-row items-center p-0 gap-[6px]" style={{ width: '821px', height: '26px' }}>
+                                    <div className="flex flex-row items-center p-0 gap-[6px] w-full h-[26px]">
                                         <h2
                                             className="font-['Inter'] font-semibold text-[20px] text-black"
                                             style={{
@@ -403,7 +393,7 @@ export default function JobDetailPage() {
                                     </div>
 
                                     {/* Responsibilities List (Frame 5325 기반) */}
-                                    <div className="flex flex-col justify-center items-start p-0 gap-[10px]" style={{ width: '804px' }}>
+                                    <div className="flex flex-col justify-center items-start p-0 gap-[10px] w-full">
                                         {[
                                             "Collaborate and work closely with product management, engineering, sales, and research from design concept to design solution, setting UX guidelines and driving cross-team collaboration and sharing, as well as establish best practices for interaction models and user interface designs throughout the team.",
                                             "Work in a start-up style environment, where iteration is encouraged and design acumen is demonstrated through design end-to-end product ownership.",
@@ -412,7 +402,7 @@ export default function JobDetailPage() {
                                         ].map((item, index) => (
                                             <div key={index} className="flex flex-row items-start gap-[10px] self-stretch">
                                                 {/* 윤아님이 정해주신 완벽한 불릿 스타일 고정 */}
-                                                <span className="text-black text-[20px] leading-[22px] flex items-center justify-center">•</span>
+                                                <span className="text-black text-[20px] leading-[22px] flex items-center justify-center shrink-0">•</span>
                                                 <p
                                                     className="font-['Inter'] font-normal text-[14px] leading-[22px] tracking-[-0.02em] text-[#000000]"
                                                     style={{ fontFeatureSettings: "'calt' off" }}
@@ -425,11 +415,10 @@ export default function JobDetailPage() {
                                 </div>
                                 {/* 5. Benefits Section (Bold 적용 버전) */}
                                 <div
-                                    className="flex flex-col py-[12px] gap-[18px] self-stretch mt-[40px]"
-                                    style={{ width: '821px' }}
+                                    className="flex flex-col py-[12px] gap-[18px] self-stretch mt-[40px] w-full"
                                 >
                                     {/* Benefits Header */}
-                                    <div className="flex flex-row items-center p-0 gap-[6px]" style={{ width: '821px', height: '26px' }}>
+                                    <div className="flex flex-row items-center p-0 gap-[6px] w-full h-[26px]">
                                         <h2
                                             className="font-['Inter'] font-semibold text-[20px] text-black"
                                             style={{
@@ -444,9 +433,8 @@ export default function JobDetailPage() {
 
                                     {/* Benefits Description (font-medium 적용으로 세미볼드 느낌 구현) */}
                                     <p
-                                        className="font-['Inter'] font-medium text-[16px] leading-[20px] tracking-[-0.02em] text-[#000000]"
+                                        className="font-['Inter'] font-medium text-[16px] leading-[20px] tracking-[-0.02em] text-[#000000] w-full h-auto"
                                         style={{
-                                            width: '821px',
                                             fontFeatureSettings: "'calt' off",
                                             fontWeight: 500 // 명세상의 500 수치를 명시적으로 적용
                                         }}
@@ -455,7 +443,7 @@ export default function JobDetailPage() {
                                     </p>
 
                                     {/* Benefits List (Bold 적용) */}
-                                    <div className="flex flex-col justify-center items-start p-0 gap-[10px]" style={{ width: '821px' }}>
+                                    <div className="flex flex-col justify-center items-start p-0 gap-[10px] w-full">
                                         {[
                                             { icon: "🏠", title: "Remote Flexibility", desc: "Work from wherever you’re most productive and happy." },
                                             { icon: "📈", title: "Equity Options", desc: "Become a shareholder through our stock options plan after 6 months." },
@@ -467,7 +455,7 @@ export default function JobDetailPage() {
                                             { icon: "🌎", title: "International Environment", desc: "Grow your language skills while working with a diverse and global team." }
                                         ].map((item, index) => (
                                             <div key={index} className="flex flex-row items-start gap-[10px] self-stretch">
-                                                <span className="text-black text-[20px] leading-[22px] flex items-center justify-center">•</span>
+                                                <span className="text-black text-[20px] leading-[22px] flex items-center justify-center shrink-0">•</span>
                                                 <p
                                                     className="font-['Inter'] font-normal text-[14px] leading-[22px] tracking-[-0.02em] text-[#000000]"
                                                     style={{ fontFeatureSettings: "'calt' off" }}
@@ -481,11 +469,10 @@ export default function JobDetailPage() {
 
                                 {/* 6. Company Section (Frame 182) */}
                                 <div
-                                    className="flex flex-col py-[12px] gap-[18px] self-stretch mt-[40px]"
-                                    style={{ width: '821px' }}
+                                    className="flex flex-col py-[12px] gap-[18px] self-stretch mt-[40px] w-full"
                                 >
                                     {/* Company Header (Qualification과 동일한 20px 스타일) */}
-                                    <div className="flex flex-row items-center p-0" style={{ width: '821px', height: '26px' }}>
+                                    <div className="flex flex-row items-center p-0 w-full h-[26px]">
                                         <h2
                                             className="font-['Inter'] font-semibold text-[20px] text-black"
                                             style={{ lineHeight: '130%', letterSpacing: '-0.5px' }}
@@ -495,7 +482,7 @@ export default function JobDetailPage() {
                                     </div>
 
                                     {/* Company Info Box (Frame 5325 기반) */}
-                                    <div className="flex flex-row items-center p-0 gap-[10px]" style={{ width: '821px', height: '103px' }}>
+                                    <div className="flex flex-col md:flex-row items-start md:items-center p-0 gap-[10px] w-full h-auto">
                                         {/* Company Logo Placeholder (Rectangle 567) */}
                                         <div
                                             className="bg-[#D9D9D9] rounded-[12px] shrink-0"
@@ -503,7 +490,7 @@ export default function JobDetailPage() {
                                         />
 
                                         {/* Text & Social Container (Frame 1000004352) */}
-                                        <div className="flex flex-col justify-between items-start p-0 h-full" style={{ width: '691px' }}>
+                                        <div className="flex flex-col justify-between items-start p-0 h-full w-full min-h-[103px]">
                                             <div className="flex flex-col gap-[6px] w-full">
                                                 <h3
                                                     className="font-['Inter'] font-semibold text-[23px] leading-[30px] tracking-[-0.02em] text-black"
@@ -561,9 +548,9 @@ export default function JobDetailPage() {
                             </div>
 
 
-                            <div className="hidden xl:block w-[260px] shrink-0 ml-[40px]">
-                                <div className="sticky top-[102px]">
-                                    <RightSidebarVer2 className="w-[260px] h-[790px] border-none shadow-none bg-transparent" />
+                            <div className="w-full max-w-[900px] xl:w-[260px] shrink-0 xl:ml-[40px] flex justify-center xl:block">
+                                <div className="xl:sticky xl:top-[102px]">
+                                    <RightSidebarVer2 className="w-full max-w-[290px] xl:w-[260px] h-[790px] border-none shadow-none bg-transparent mx-auto" />
                                 </div>
                             </div>
                         </div>

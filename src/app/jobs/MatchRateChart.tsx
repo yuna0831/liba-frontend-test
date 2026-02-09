@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useSpring, useTransform, useInView } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 
 interface MatchRateChartProps {
     percentage: number;
@@ -16,8 +17,30 @@ export function MatchRateChart({ percentage, size = 107.83, color = '#FFD035' }:
     // 시계 반대 방향으로 채우기 위한 오프셋 계산
     const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true });
+
+    // Count-up animation
+    const springValue = useSpring(0, { bounce: 0, duration: 1500 });
+    const displayValue = useTransform(springValue, (value) => Math.round(value));
+    const [displayPercent, setDisplayPercent] = useState(0);
+
+    useEffect(() => {
+        if (isInView) {
+            springValue.set(percentage);
+        }
+    }, [isInView, percentage, springValue]);
+
+    useEffect(() => {
+        const unsubscribe = displayValue.on("change", (latest) => {
+            setDisplayPercent(latest);
+        });
+        return () => unsubscribe();
+    }, [displayValue]);
+
     return (
         <div
+            ref={ref}
             className="relative flex items-center justify-center flex-none"
             style={{ width: `${size}px`, height: `${size}px` }}
         >
@@ -47,16 +70,16 @@ export function MatchRateChart({ percentage, size = 107.83, color = '#FFD035' }:
                     cx={size / 2}
                     cy={size / 2}
                     initial={{ strokeDashoffset: circumference }}
-                    animate={{ strokeDashoffset }}
-                    transition={{ duration: 1.2, ease: "easeOut" }}
+                    animate={isInView ? { strokeDashoffset } : {}}
+                    transition={{ duration: 1.5, ease: "easeOut" }}
                 />
             </svg>
 
             {/* 중앙 텍스트 레이어 - 피그마 calc 수치 엄격 반영 */}
             <div className="absolute inset-0 pointer-events-none">
-                {/* 64% 텍스트 */}
+                {/* 64% 텍스트 - Count Effect */}
                 <span
-                    className="absolute font-[family-name:var(--font-inter)] font-semibold text-[#1F2937] text-center"
+                    className="absolute font-[family-name:var(--font-inter)] font-semibold text-[#1F2937] text-center flex items-center justify-center"
                     style={{
                         width: '51px',
                         height: '28px',
@@ -68,7 +91,7 @@ export function MatchRateChart({ percentage, size = 107.83, color = '#FFD035' }:
                         fontFeatureSettings: "'calt' off"
                     }}
                 >
-                    {percentage}%
+                    {displayPercent}%
                 </span>
 
                 {/* Match 텍스트 */}

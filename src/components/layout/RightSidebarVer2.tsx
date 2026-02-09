@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Sparkles } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 /**
  * MatchRateCard: 110x81px 사이즈의 개별 매칭 카드 (Figma: Rectangle 9638)
@@ -69,9 +70,12 @@ export const RightSidebarVer2 = ({ className }: { className?: string }) => {
     const [isUpgraded, setIsUpgraded] = useState(false);
 
     return (
-        <div
-            className={`relative overflow-hidden bg-white rounded-[12px] border border-[#EDEDED] shadow-sm transition-all duration-500 ${className || ''}`}
+        <motion.div
+            className={`relative overflow-hidden bg-white rounded-[12px] border border-[#EDEDED] shadow-sm ${className || ''}`}
             style={{ width: '290px', height: '788px' }}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
         >
             {/* 1. Gemini-style Aurora Background */}
             <div className="absolute inset-0 pointer-events-none transition-opacity duration-1000"
@@ -134,7 +138,12 @@ export const RightSidebarVer2 = ({ className }: { className?: string }) => {
                 >
 
                     {/* Section: Relevant Experience ✅ (Frame 29026) */}
-                    <div className="flex flex-col items-start gap-[11px] py-[25px] relative" style={{ width: '247px', minHeight: '192px' }}>
+                    <motion.div
+                        className="flex flex-col items-start gap-[11px] py-[25px] relative"
+                        style={{ width: '247px', minHeight: '192px' }}
+                        animate={isUpgraded ? { opacity: 1, y: 0 } : { opacity: 0.5, y: 5 }}
+                        transition={{ delay: 0.1 }}
+                    >
                         <h4 className="font-['Inter'] font-semibold text-[14px] leading-[10px] tracking-[-0.02em] text-black px-[16px]">
                             Relevant Experience ✅
                         </h4>
@@ -144,10 +153,15 @@ export const RightSidebarVer2 = ({ className }: { className?: string }) => {
                                 You have substantial experience as a UI/UX Designer, Interaction Designer, and User Research Specialist. Your role at Sohu aligns with designing interaction elements relevant to user experience design for digital products.
                             </p>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Section: Seniority ✅ (Frame 29025) */}
-                    <div className="flex flex-col items-start gap-[10px] py-[25px] relative" style={{ width: '236px', minHeight: '131px' }}>
+                    <motion.div
+                        className="flex flex-col items-start gap-[10px] py-[25px] relative"
+                        style={{ width: '236px', minHeight: '131px' }}
+                        animate={isUpgraded ? { opacity: 1, y: 0 } : { opacity: 0.5, y: 5 }}
+                        transition={{ delay: 0.2 }}
+                    >
                         <h4 className="font-['Inter'] font-semibold text-[14px] leading-[10px] tracking-[-0.02em] text-black px-[16px]">
                             Seniority ✅
                         </h4>
@@ -157,10 +171,15 @@ export const RightSidebarVer2 = ({ className }: { className?: string }) => {
                                 You have amassed over eight years of relevant experience, meeting the mid-level seniority requirement for the role.
                             </p>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Section: Education ⚠️ (Frame 29024) */}
-                    <div className="flex flex-col items-start gap-[12px] py-[20px] relative" style={{ width: '247px', minHeight: '193px' }}>
+                    <motion.div
+                        className="flex flex-col items-start gap-[12px] py-[20px] relative"
+                        style={{ width: '247px', minHeight: '193px' }}
+                        animate={isUpgraded ? { opacity: 1, y: 0 } : { opacity: 0.5, y: 5 }}
+                        transition={{ delay: 0.3 }}
+                    >
                         <h4 className="font-['Inter'] font-semibold text-[14px] leading-[10px] tracking-[-0.02em] text-black px-[16px]">
                             Education ⚠️
                         </h4>
@@ -170,39 +189,46 @@ export const RightSidebarVer2 = ({ className }: { className?: string }) => {
                                 While you hold a Master's degree from Politecnico di Milano in Digital and Interaction Design, it doesn't strictly align with the specified fields of Computer Science, Computer Engineering, or Information Science and Technology required by the job.
                             </p>
                         </div>
-                    </div>
+                    </motion.div>
 
                 </div>
             </div>
 
             {/* 4. Premium Lock Overlay */}
-            {
-                !isUpgraded && (
-                    <div
-                        className="absolute inset-0 flex flex-col items-center justify-end pb-[37px] z-[30]"
-                        style={{
-                            top: '54px',
-                            background: 'linear-gradient(180deg, rgba(255, 255, 255, 0) -1.24%, rgba(255, 255, 255, 0.3) 22.39%, rgba(255, 255, 255, 1) 100%)',
-                            backdropFilter: 'blur(18px)',
-                            WebkitBackdropFilter: 'blur(18px)'
-                        }}
-                    >
-                        {/* Texture Overlay */}
-                        <div className="absolute inset-0 opacity-[0.02] pointer-events-none"
-                            style={{ backgroundImage: `url("https://www.transparenttextures.com/patterns/carbon-fibre.png")` }} />
-
-                        {/* Upgrade Button */}
-                        <button
-                            onClick={() => setIsUpgraded(true)}
-                            className="flex flex-row justify-center items-center px-[18px] py-[8px] gap-[10px] bg-[#1F2937] rounded-[43px] shadow-2xl transition-all hover:bg-black hover:scale-105 active:scale-95 group"
-                            style={{ width: '172px', height: '40px' }}
+            <AnimatePresence>
+                {
+                    !isUpgraded && (
+                        <motion.div
+                            className="absolute inset-0 flex flex-col items-center justify-end pb-[37px] z-[30]"
+                            style={{
+                                top: '54px',
+                                background: 'linear-gradient(180deg, rgba(255, 255, 255, 0) -1.24%, rgba(255, 255, 255, 0.3) 22.39%, rgba(255, 255, 255, 1) 100%)',
+                                backdropFilter: 'blur(18px)',
+                                WebkitBackdropFilter: 'blur(18px)'
+                            }}
+                            initial={{ opacity: 1 }}
+                            exit={{ opacity: 0, pointerEvents: 'none' }}
+                            transition={{ duration: 0.5 }}
                         >
-                            <span className="font-['Inter'] font-normal text-[16px] text-white">Upgrade to check</span>
-                        </button>
-                    </div>
-                )
-            }
-        </div >
+                            {/* Texture Overlay */}
+                            <div className="absolute inset-0 opacity-[0.02] pointer-events-none"
+                                style={{ backgroundImage: `url("https://www.transparenttextures.com/patterns/carbon-fibre.png")` }} />
+
+                            {/* Upgrade Button */}
+                            <motion.button
+                                onClick={() => setIsUpgraded(true)}
+                                className="flex flex-row justify-center items-center px-[18px] py-[8px] gap-[10px] bg-[#1F2937] rounded-[43px] shadow-2xl group"
+                                style={{ width: '172px', height: '40px' }}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                <span className="font-['Inter'] font-normal text-[16px] text-white">Upgrade to check</span>
+                            </motion.button>
+                        </motion.div>
+                    )
+                }
+            </AnimatePresence>
+        </motion.div >
     );
 };
 
