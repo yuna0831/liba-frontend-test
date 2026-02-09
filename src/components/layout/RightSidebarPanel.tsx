@@ -6,7 +6,7 @@ export function RightSidebarPanel({ className }: { className?: string }) {
         <div className={`w-[290px] h-[790px] bg-[#FFFFFF] rounded-[12px] overflow-hidden z-30 border border-[#E5E7EB] relative ${className}`}>
 
             {/* 1. Gemini-style Aurora Background */}
-            {/* 왼쪽은 흰색을 유지하면서 오른쪽 영역에만 색상이 부드럽게 번지도록 설정 */}
+            {/* 왼쪽은 흰색을 유지하면서 오른쪽 영역에만 색상이 부드럽게 번지도록 설정  */}
             <div className="absolute inset-0 pointer-events-none"
                 style={{
                     background: `
